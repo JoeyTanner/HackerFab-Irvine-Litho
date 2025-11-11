@@ -1,0 +1,1733 @@
+<!--                                  
+ Copyright (c) 2024 Texas Instruments
+                                      
+
+ NOTE: This file is auto generated from a command definition file.
+       Please do not modify the file directly.                    
+
+ Command Spec Version : 1.0
+ -->
+<?xml-stylesheet type="text/xsl" href="ScriptAPIDoc.xsl"?>
+<ScriptAPIDoc>
+  <Function>
+    <Name>WriteInternalRegister</Name>
+    <OpCode>00</OpCode>
+    <Desc>Writes data to an internal register of the projection module.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFpgaInterruptClear</Name>
+    <OpCode>00</OpCode>
+    <Desc>Interrupt Clear/Status Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFpgaInterruptSet</Name>
+    <OpCode>00</OpCode>
+    <Desc>Interrupt Clear/Status Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFpgaInterruptEnable</Name>
+    <OpCode>00</OpCode>
+    <Desc>Interrupt Clear/Status Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>RegisterAccessTimeoutIrq</Name>
+        <Type>bool</Type>
+        <Desc>Interrupt is asserted in the scenario where a R/W access fails to complete in the allocated timeout duration.</Desc>
+      </Param>
+      <Param>
+        <Name>InitDoneIrq</Name>
+        <Type>bool</Type>
+        <Desc>FPGA and DMD initialization complete. Ready for SPI communication.</Desc>
+      </Param>
+      <Param>
+        <Name>BrownoutIrq</Name>
+        <Type>bool</Type>
+        <Desc>Brownout detected</Desc>
+      </Param>
+      <Param>
+        <Name>VidLoopCompIrq</Name>
+        <Type>bool</Type>
+        <Desc>Video loop completed. If multiple loops of a video are requested, this interrupt triggers after each completed loop.</Desc>
+      </Param>
+      <Param>
+        <Name>VidConfigCompIrq</Name>
+        <Type>bool</Type>
+        <Desc>Video configuration completed including all requested loops. This triggers once after all loops of a video complete. If both video configurations are requested to be used, it will trigger after each configuration completes (twice).</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFpgaMainStatus</Name>
+    <OpCode>00</OpCode>
+    <Desc>FPGA Main Status</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>MainStatusSsfPllLocked</Name>
+        <Type>bool</Type>
+        <Desc>Read-only status 1: SSF PLL locked 0: not locked</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFpgaControl</Name>
+    <OpCode>00</OpCode>
+    <Desc>FPGA control function</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>FpgaControlDifTpgEn</Name>
+        <Type>bool</Type>
+        <Desc>1: enable DIF TPG function</Desc>
+      </Param>
+      <Param>
+        <Name>FpgaControlLdcEn</Name>
+        <Type>bool</Type>
+        <Desc>1: enable LDC led and pwm function</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFmtFlip</Name>
+    <OpCode>00</OpCode>
+    <Desc>FMT Flip Control</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>DmdSflip</Name>
+        <Type>bool</Type>
+        <Desc>1: enable image flip along DMD short side</Desc>
+      </Param>
+      <Param>
+        <Name>DmdLflip</Name>
+        <Type>bool</Type>
+        <Desc>1: enable image flip along DMD long side</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFmtControl</Name>
+    <OpCode>00</OpCode>
+    <Desc>FMT Control</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>FmtCtrlTrcen</Name>
+        <Type>bool</Type>
+        <Desc>1: enable the DMD TRC function</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCtrlCmboutswap</Name>
+        <Type>bool</Type>
+        <Desc>1: swap comb outputs</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFmtCmbStatus</Name>
+    <OpCode>00</OpCode>
+    <Desc>FMT Comb Status</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>FmtCmbQueuewrn</Name>
+        <Type>bool</Type>
+        <Desc>Comb queue warning</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCmbCmderr</Name>
+        <Type>bool</Type>
+        <Desc>Comb command error</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCmbMulterr</Name>
+        <Type>bool</Type>
+        <Desc>Comb mult error</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCmbNodataerr</Name>
+        <Type>bool</Type>
+        <Desc>Comb no data error</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFmtFrbStatus</Name>
+    <OpCode>00</OpCode>
+    <Desc>FMT FRB Status</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>FmtFrbEmpty</Name>
+        <Type>bool</Type>
+        <Desc>FRB empty</Desc>
+      </Param>
+      <Param>
+        <Name>FmtFrbOverflow</Name>
+        <Type>bool</Type>
+        <Desc>FRB overflow</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteRscSwDmdUnpark</Name>
+    <OpCode>00</OpCode>
+    <Desc>RSC Software DMD Unpark</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>RscSwDmdUnpark</Name>
+        <Type>bool</Type>
+        <Desc>1: run (normal DMD operation) 0: DMD park</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteRscParkWaveformCtrl</Name>
+    <OpCode>00</OpCode>
+    <Desc>RSC Park Waveform Control Register</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>RscParkVcclvFld</Name>
+        <Type>bool</Type>
+        <Desc>park vcc/vcc2 level</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteRscUnused</Name>
+    <OpCode>00</OpCode>
+    <Desc>RSC Unused</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteRscMiscControl</Name>
+    <OpCode>00</OpCode>
+    <Desc>RSC MISC Control</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>RscMctrlShadowenable</Name>
+        <Type>bool</Type>
+        <Desc>enable for DAD shadow mode</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteRscSeqControl</Name>
+    <OpCode>00</OpCode>
+    <Desc>RSC Sequencer Control</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>RscSeqctrlSeqen</Name>
+        <Type>bool</Type>
+        <Desc>1: sequencer enable 0: disable</Desc>
+      </Param>
+      <Param>
+        <Name>RscSeqctrlVectincen</Name>
+        <Type>bool</Type>
+        <Desc>1: Sequence vector auto increment enable</Desc>
+      </Param>
+      <Param>
+        <Name>RscSeqctrlSeqvect</Name>
+        <Type>int</Type>
+        <Desc>Sequence vector number</Desc>
+      </Param>
+      <Param>
+        <Name>RscSeqctrlNumsubvect</Name>
+        <Type>int</Type>
+        <Desc>Number of sub-vector</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteSequenceSelect</Name>
+    <OpCode>00</OpCode>
+    <Desc>Sequence Buffer Select</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>SeqbufSelect</Name>
+        <Type>bool</Type>
+        <Desc>0: select sequencer buffer 0 1: buffer 1</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WritePwmControl</Name>
+    <OpCode>00</OpCode>
+    <Desc>PWM Control</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>RpwmDc</Name>
+        <Type>int</Type>
+        <Desc>Red PWM duty cycle</Desc>
+      </Param>
+      <Param>
+        <Name>GpwmDc</Name>
+        <Type>int</Type>
+        <Desc>Green PWM duty cycle</Desc>
+      </Param>
+      <Param>
+        <Name>BpwmDc</Name>
+        <Type>int</Type>
+        <Desc>Blue PWM duty cycle</Desc>
+      </Param>
+      <Param>
+        <Name>PwmEn</Name>
+        <Type>bool</Type>
+        <Desc>1: enable PWM output.</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteVideoFrameRate</Name>
+    <OpCode>00</OpCode>
+    <Desc>Video frame rate</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>VideoFrameRate</Name>
+        <Type>int</Type>
+        <Desc>Video frame time in 40MHz clock counts</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteVideoStartAddress1</Name>
+    <OpCode>00</OpCode>
+    <Desc>Video start address 1</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>StartAddr1</Name>
+        <Type>int</Type>
+        <Desc>Video 1 start address in flash</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteVideoConfiguration1</Name>
+    <OpCode>00</OpCode>
+    <Desc>Video configuration 1</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>FrameCnt1</Name>
+        <Type>int</Type>
+        <Desc>Number of frames in video 1 0 = Invalid 1 = 1 frame 2 = 2 frames</Desc>
+      </Param>
+      <Param>
+        <Name>LoopCnt1</Name>
+        <Type>int</Type>
+        <Desc>Number of times to loop video 1 0 = Invalid 1 = 1 loop 2 = 2 loops</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteVideoStartAddress2</Name>
+    <OpCode>00</OpCode>
+    <Desc>Video start address 2</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>StartAddr2</Name>
+        <Type>int</Type>
+        <Desc>Video 2 start address in flash</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteVideoConfiguration2</Name>
+    <OpCode>00</OpCode>
+    <Desc>Video configuration 2</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>FrameCnt2</Name>
+        <Type>int</Type>
+        <Desc>Number of frames in video 2 0 = Invalid 1 = 1 frame 2 = 2 frames</Desc>
+      </Param>
+      <Param>
+        <Name>LoopCnt2</Name>
+        <Type>int</Type>
+        <Desc>Number of times to loop video 2 0 = Invalid 1 = 1 loop 2 = 2 loops</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteVideoControl</Name>
+    <OpCode>00</OpCode>
+    <Desc>Video control</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>VideoControl</Name>
+        <Type>VideoControl</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteVcmSeqabort</Name>
+    <OpCode>00</OpCode>
+    <Desc>Video sequence abort count</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>VcmMaxSeqabort</Name>
+        <Type>int</Type>
+        <Desc>Maximum number of allowable sequence aborts before video playback stops</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteVcmTmsel</Name>
+    <OpCode>00</OpCode>
+    <Desc>Video controller test mux select</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>VcmTmsel</Name>
+        <Type>int</Type>
+        <Desc>Video controller test mux select</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteTmpCtrl</Name>
+    <OpCode>00</OpCode>
+    <Desc>Temperature control</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>NFactor</Name>
+        <Type>int</Type>
+        <Desc>N factor to compensate TMP411 measurement (see TMP411 datasheet for details)</Desc>
+      </Param>
+      <Param>
+        <Name>I2CSlaveAddr</Name>
+        <Type>int</Type>
+        <Desc>TMP411 I2C slave address (see TMP411 datasheet for details)</Desc>
+      </Param>
+      <Param>
+        <Name>CtrlEn</Name>
+        <Type>bool</Type>
+        <Desc>Temperature function enable 0 = Disable 1 = Enable</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteDestopTimeoutDebugInfoReg</Name>
+    <OpCode>00</OpCode>
+    <Desc>DESTOP Timeout Debug Information Register</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>DestopTimeoutAddrOffs</Name>
+        <Type>int</Type>
+        <Desc>Timeout Address Offset.   Indicates the PBC address offset associated with the first timeout occurrence. Cleared to 0x000 whenever S/W writes anything to this register.</Desc>
+      </Param>
+      <Param>
+        <Name>DestopTimeoutRnw</Name>
+        <Type>bool</Type>
+        <Desc>Timeout R/W Indicator (1=Read; 0=Write).   Indicates the type of access (read or write) that was attempted when the first timeout occurred.  Cleared to 0 whenever S/W writes anything to this register.</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteDestopMbox0SaptrReg</Name>
+    <OpCode>00</OpCode>
+    <Desc>Sub-Address Pointer Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>DestopMbox0Saptr</Name>
+        <Type>int</Type>
+        <Desc>Mailbox sub-address pointer. Format: Unsigned</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteDestopMbox0CtrlReg</Name>
+    <OpCode>00</OpCode>
+    <Desc>Access Control Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>DestopMbox0Mbasel</Name>
+        <Type>int</Type>
+        <Desc>Mailbox access select (See decode table (above) for details)</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox0Saptrhld</Name>
+        <Type>bool</Type>
+        <Desc>Mailbox sub-address pointer hold control</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteDestopMbox0DataReg</Name>
+    <OpCode>00</OpCode>
+    <Desc>Mailbox Data Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>DestopMbox0Data</Name>
+        <Type>int</Type>
+        <Desc>Mailbox Data Port</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteDestopMbox1SaptrReg</Name>
+    <OpCode>00</OpCode>
+    <Desc>Sub-Address Pointer Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>DestopMbox1Saptr</Name>
+        <Type>int</Type>
+        <Desc>Mailbox sub-address pointer. Format: Unsigned</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteDestopMbox1CtrlReg</Name>
+    <OpCode>00</OpCode>
+    <Desc>Access Control Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>DestopMbox1Mbasel</Name>
+        <Type>int</Type>
+        <Desc>Mailbox access select (See decode table (above) for details)</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox1Saptrhld</Name>
+        <Type>bool</Type>
+        <Desc>Mailbox sub-address pointer hold control</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteDestopMbox1DataReg</Name>
+    <OpCode>00</OpCode>
+    <Desc>Mailbox Data Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>DestopMbox1Data</Name>
+        <Type>int</Type>
+        <Desc>Mailbox Data Port</Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>ReadInternalRegister</Name>
+    <OpCode>01</OpCode>
+    <Desc>Reads data from an internal register of the projection module. </Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>ReadFpgaInterruptClear</Name>
+    <OpCode>01</OpCode>
+    <Desc>Interrupt Clear/Status Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFpgaInterruptSet</Name>
+    <OpCode>01</OpCode>
+    <Desc>Interrupt Clear/Status Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFpgaInterruptEnable</Name>
+    <OpCode>01</OpCode>
+    <Desc>Interrupt Clear/Status Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>RegisterAccessTimeoutIrq</Name>
+        <Type>bool</Type>
+        <Desc>Interrupt is asserted in the scenario where a R/W access fails to complete in the allocated timeout duration.</Desc>
+      </Param>
+      <Param>
+        <Name>InitDoneIrq</Name>
+        <Type>bool</Type>
+        <Desc>FPGA and DMD initialization complete. Ready for SPI communication.</Desc>
+      </Param>
+      <Param>
+        <Name>BrownoutIrq</Name>
+        <Type>bool</Type>
+        <Desc>Brownout detected</Desc>
+      </Param>
+      <Param>
+        <Name>VidLoopCompIrq</Name>
+        <Type>bool</Type>
+        <Desc>Video loop completed. If multiple loops of a video are requested, this interrupt triggers after each completed loop.</Desc>
+      </Param>
+      <Param>
+        <Name>VidConfigCompIrq</Name>
+        <Type>bool</Type>
+        <Desc>Video configuration completed including all requested loops. This triggers once after all loops of a video complete. If both video configurations are requested to be used, it will trigger after each configuration completes (twice).</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFpgaMainStatus</Name>
+    <OpCode>01</OpCode>
+    <Desc>FPGA Main Status</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>MainStatusSsfPllLocked</Name>
+        <Type>bool</Type>
+        <Desc>Read-only status 1: SSF PLL locked 0: not locked</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFpgaVersion</Name>
+    <OpCode>01</OpCode>
+    <Desc>FPGA bitstream version</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>BuildNumber</Name>
+        <Type>int</Type>
+        <Desc>FPGA bitstream build number</Desc>
+      </Param>
+      <Param>
+        <Name>VersionMajor</Name>
+        <Type>int</Type>
+        <Desc>FPGA bitstream revision</Desc>
+      </Param>
+      <Param>
+        <Name>VersionMinor</Name>
+        <Type>int</Type>
+        <Desc>FPGA bitstream revision</Desc>
+      </Param>
+      <Param>
+        <Name>BuildLevel</Name>
+        <Type>int</Type>
+        <Desc>FPGA bitstream build level 0: Debug release. 1+: Versioned release.</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFpgaControl</Name>
+    <OpCode>01</OpCode>
+    <Desc>FPGA control function</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>FpgaControlDifTpgEn</Name>
+        <Type>bool</Type>
+        <Desc>1: enable DIF TPG function</Desc>
+      </Param>
+      <Param>
+        <Name>FpgaControlLdcEn</Name>
+        <Type>bool</Type>
+        <Desc>1: enable LDC led and pwm function</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFmtFlip</Name>
+    <OpCode>01</OpCode>
+    <Desc>FMT Flip Control</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>DmdSflip</Name>
+        <Type>bool</Type>
+        <Desc>1: enable image flip along DMD short side</Desc>
+      </Param>
+      <Param>
+        <Name>DmdLflip</Name>
+        <Type>bool</Type>
+        <Desc>1: enable image flip along DMD long side</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFmtControl</Name>
+    <OpCode>01</OpCode>
+    <Desc>FMT Control</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCtrlTrcen</Name>
+        <Type>bool</Type>
+        <Desc>1: enable the DMD TRC function</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCtrlCmboutswap</Name>
+        <Type>bool</Type>
+        <Desc>1: swap comb outputs</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFmtCmbStatus</Name>
+    <OpCode>01</OpCode>
+    <Desc>FMT Comb Status</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCmbQueuewrn</Name>
+        <Type>bool</Type>
+        <Desc>Comb queue warning</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCmbCmderr</Name>
+        <Type>bool</Type>
+        <Desc>Comb command error</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCmbMulterr</Name>
+        <Type>bool</Type>
+        <Desc>Comb mult error</Desc>
+      </Param>
+      <Param>
+        <Name>FmtCmbNodataerr</Name>
+        <Type>bool</Type>
+        <Desc>Comb no data error</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFmtFrbStatus</Name>
+    <OpCode>01</OpCode>
+    <Desc>FMT FRB Status</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>FmtFrbEmpty</Name>
+        <Type>bool</Type>
+        <Desc>FRB empty</Desc>
+      </Param>
+      <Param>
+        <Name>FmtFrbOverflow</Name>
+        <Type>bool</Type>
+        <Desc>FRB overflow</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadRscSwDmdUnpark</Name>
+    <OpCode>01</OpCode>
+    <Desc>RSC Software DMD Unpark</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>RscSwDmdUnpark</Name>
+        <Type>bool</Type>
+        <Desc>1: run (normal DMD operation) 0: DMD park</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadRscParkWaveformCtrl</Name>
+    <OpCode>01</OpCode>
+    <Desc>RSC Park Wavefrom Control Register</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>RscParkVcclvFld</Name>
+        <Type>bool</Type>
+        <Desc>park vcc/vcc2 level</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadRscUnused</Name>
+    <OpCode>01</OpCode>
+    <Desc>RSC Unused</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadRscMiscControl</Name>
+    <OpCode>01</OpCode>
+    <Desc>RSC MISC Control</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>RscMctrlShadowenable</Name>
+        <Type>bool</Type>
+        <Desc>enable for DAD shadow mode</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadRscSeqControl</Name>
+    <OpCode>01</OpCode>
+    <Desc>RSC Sequencer Control</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>RscSeqctrlSeqen</Name>
+        <Type>bool</Type>
+        <Desc>1: sequencer enable 0: disable</Desc>
+      </Param>
+      <Param>
+        <Name>RscSeqctrlVectincen</Name>
+        <Type>bool</Type>
+        <Desc>1: Sequence vector auto increment enable</Desc>
+      </Param>
+      <Param>
+        <Name>RscSeqctrlSeqvect</Name>
+        <Type>int</Type>
+        <Desc>Sequence vector number</Desc>
+      </Param>
+      <Param>
+        <Name>RscSeqctrlNumsubvect</Name>
+        <Type>int</Type>
+        <Desc>Number of sub-vector</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadSequenceSelect</Name>
+    <OpCode>01</OpCode>
+    <Desc>Sequence Buffer Select</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>SeqbufSelect</Name>
+        <Type>bool</Type>
+        <Desc>0: select sequencer buffer 0 1: buffer 1</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadPwmControl</Name>
+    <OpCode>01</OpCode>
+    <Desc>PWM Control</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>RpwmDc</Name>
+        <Type>int</Type>
+        <Desc>Red PWM duty cycle</Desc>
+      </Param>
+      <Param>
+        <Name>GpwmDc</Name>
+        <Type>int</Type>
+        <Desc>Green PWM duty cycle</Desc>
+      </Param>
+      <Param>
+        <Name>BpwmDc</Name>
+        <Type>int</Type>
+        <Desc>Blue PWM duty cycle</Desc>
+      </Param>
+      <Param>
+        <Name>PwmEn</Name>
+        <Type>bool</Type>
+        <Desc>1: enable PWM output.</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVideoFrameRate</Name>
+    <OpCode>01</OpCode>
+    <Desc>Video frame rate</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>VideoFrameRate</Name>
+        <Type>int</Type>
+        <Desc>Video frame time in 40MHz clock counts</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVideoStartAddress1</Name>
+    <OpCode>01</OpCode>
+    <Desc>Video start address 1</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>StartAddr1</Name>
+        <Type>int</Type>
+        <Desc>Video 1 start address in flash</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVideoConfiguration1</Name>
+    <OpCode>01</OpCode>
+    <Desc>Video configuration 1</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>FrameCnt1</Name>
+        <Type>int</Type>
+        <Desc>Number of frames in video 1 0 = Invalid 1 = 1 frame 2 = 2 frames</Desc>
+      </Param>
+      <Param>
+        <Name>LoopCnt1</Name>
+        <Type>int</Type>
+        <Desc>Number of times to loop video 1 0 = Invalid 1 = 1 loop 2 = 2 loops</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVideoStartAddress2</Name>
+    <OpCode>01</OpCode>
+    <Desc>Video start address 2</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>StartAddr2</Name>
+        <Type>int</Type>
+        <Desc>Video 2 start address in flash</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVideoConfiguration2</Name>
+    <OpCode>01</OpCode>
+    <Desc>Video configuration 2</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>FrameCnt2</Name>
+        <Type>int</Type>
+        <Desc>Number of frames in video 2 0 = Invalid 1 = 1 frame 2 = 2 frames</Desc>
+      </Param>
+      <Param>
+        <Name>LoopCnt2</Name>
+        <Type>int</Type>
+        <Desc>Number of times to loop video 2 0 = Invalid 1 = 1 loop 2 = 2 loops</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVideoControl</Name>
+    <OpCode>01</OpCode>
+    <Desc>Video control</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>VideoControl</Name>
+        <Type>VideoControl</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVideoStatus</Name>
+    <OpCode>01</OpCode>
+    <Desc>Video status</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>VidInProgress</Name>
+        <Type>bool</Type>
+        <Desc>Video in progress</Desc>
+      </Param>
+      <Param>
+        <Name>CurrConfigPtr</Name>
+        <Type>bool</Type>
+        <Desc>Current video configuration pointer 0 = Video 1 1 = Video 2</Desc>
+      </Param>
+      <Param>
+        <Name>SeqAbortErr</Name>
+        <Type>bool</Type>
+        <Desc>Sequence abort error. Clears on play</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVcmSeqabort</Name>
+    <OpCode>01</OpCode>
+    <Desc>Video sequence abort count</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>VcmMaxSeqabort</Name>
+        <Type>int</Type>
+        <Desc>Maximum number of allowable sequence aborts before video playback stops</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVcmTmsel</Name>
+    <OpCode>01</OpCode>
+    <Desc>Video controller test mux select</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>VcmTmsel</Name>
+        <Type>int</Type>
+        <Desc>Video controller test mux select</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadTmpCtrl</Name>
+    <OpCode>01</OpCode>
+    <Desc>Temperature control</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>NFactor</Name>
+        <Type>int</Type>
+        <Desc>N factor to compensate TMP411 measurement (see TMP411 datasheet for details)</Desc>
+      </Param>
+      <Param>
+        <Name>I2CSlaveAddr</Name>
+        <Type>int</Type>
+        <Desc>TMP411 I2C slave address (see TMP411 datasheet for details)</Desc>
+      </Param>
+      <Param>
+        <Name>CtrlEn</Name>
+        <Type>bool</Type>
+        <Desc>Temperature function enable 0 = Disable 1 = Enable</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadTmpStatus</Name>
+    <OpCode>01</OpCode>
+    <Desc>Temperature status</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Pass</Name>
+        <Type>bool</Type>
+        <Desc>1 = Configuration read matched expected value</Desc>
+      </Param>
+      <Param>
+        <Name>Valid</Name>
+        <Type>bool</Type>
+        <Desc>0 = I2C temperature read failed or not completed yet 1 = I2C temperature read succeeded</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadTemperatureRemoteChannel</Name>
+    <OpCode>01</OpCode>
+    <Desc>Temperature sensor remote channel</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>TmpRemoteRaw</Name>
+        <Type>int</Type>
+        <Desc>DMD temperature single measurement</Desc>
+      </Param>
+      <Param>
+        <Name>TmpRemoteFiltered</Name>
+        <Type>int</Type>
+        <Desc>DMD temperature after filtering</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadTemperatureLocalChannel</Name>
+    <OpCode>01</OpCode>
+    <Desc>Temperature sensor local channel</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>TmpLocalRaw</Name>
+        <Type>int</Type>
+        <Desc>TMP411 local temperature single measurement</Desc>
+      </Param>
+      <Param>
+        <Name>TmpLocalFiltered</Name>
+        <Type>int</Type>
+        <Desc>TMP411 local temperature after filtering</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadDestopTimeoutDebugInfoReg</Name>
+    <OpCode>01</OpCode>
+    <Desc>DESTOP Timeout Debug Information Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>DestopTimeoutAddrOffs</Name>
+        <Type>int</Type>
+        <Desc>Timeout Address Offset.   Indicates the PBC address offset associated with the first timeout occurrence. Cleared to 0x000 whenever S/W writes anything to this register.</Desc>
+      </Param>
+      <Param>
+        <Name>DestopTimeoutRnw</Name>
+        <Type>bool</Type>
+        <Desc>Timeout R/W Indicator (1=Read; 0=Write).   Indicates the type of access (read or write) that was attempted when the first timeout occurred.  Cleared to 0 whenever S/W writes anything to this register.</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadDestopMbox0SaptrReg</Name>
+    <OpCode>01</OpCode>
+    <Desc>Sub-Address Pointer Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox0Saptr</Name>
+        <Type>int</Type>
+        <Desc>Mailbox sub-address pointer. Format: Unsigned</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadDestopMbox0CtrlReg</Name>
+    <OpCode>01</OpCode>
+    <Desc>Access Control Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox0Mbasel</Name>
+        <Type>int</Type>
+        <Desc>Mailbox access select (See decode table (above) for details)</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox0Saptrhld</Name>
+        <Type>bool</Type>
+        <Desc>Mailbox sub-address pointer hold control</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadDestopMbox0DataReg</Name>
+    <OpCode>01</OpCode>
+    <Desc>Mailbox Data Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox0Data</Name>
+        <Type>int</Type>
+        <Desc>Mailbox Data Port</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadDestopMbox1SaptrReg</Name>
+    <OpCode>01</OpCode>
+    <Desc>Sub-Address Pointer Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox1Saptr</Name>
+        <Type>int</Type>
+        <Desc>Mailbox sub-address pointer. Format: Unsigned</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadDestopMbox1CtrlReg</Name>
+    <OpCode>01</OpCode>
+    <Desc>Access Control Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox1Mbasel</Name>
+        <Type>int</Type>
+        <Desc>Mailbox access select (See decode table (above) for details)</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox1Saptrhld</Name>
+        <Type>bool</Type>
+        <Desc>Mailbox sub-address pointer hold control</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadDestopMbox1DataReg</Name>
+    <OpCode>01</OpCode>
+    <Desc>Mailbox Data Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>DestopMbox1Data</Name>
+        <Type>int</Type>
+        <Desc>Mailbox Data Port</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Class>
+    <Name>ExecutionSummary</Name>
+    <TIInternal>False</TIInternal>
+    <Member>
+      <Name>Successful</Name>
+      <Type>bool</Type>
+      <Desc>A boolean value indicating if the command execution was successful.</Desc>
+    </Member>
+    <Member>
+      <Name>Command</Name>
+      <Type>str</Type>
+      <Desc>The command that was executed.</Desc>
+    </Member>
+  </Class>
+  <Class>
+    <Name>VideoControl</Name>
+    <TIInternal>False</TIInternal>
+    <Member>
+      <Name>Play</Name>
+      <Type>bool</Type>
+      <Desc>Play video. Self-clearing.</Desc>
+    </Member>
+    <Member>
+      <Name>Stop</Name>
+      <Type>bool</Type>
+      <Desc>Stop video / Park DMD 0 = Allow video play 1 = Stop video playback and park DMD. Must be set to 0 to play video.</Desc>
+    </Member>
+    <Member>
+      <Name>Autostop</Name>
+      <Type>bool</Type>
+      <Desc>Auto-stop after playback 0 = Repeat last frame of video playback until commanded otherwise 1 = Stop and park DMD after video(s) complete</Desc>
+    </Member>
+    <Member>
+      <Name>BufPtr</Name>
+      <Type>bool</Type>
+      <Desc>Video configuration pointer 0 = Play video 1 1 = Play video 2</Desc>
+    </Member>
+    <Member>
+      <Name>LoopConfigs</Name>
+      <Type>bool</Type>
+      <Desc>Loop configuration(s) 0 = End after selected configuration if toggle buffers = 0. End after both configurations if toggle configs set to 1. 1 = Repeat configuration</Desc>
+    </Member>
+    <Member>
+      <Name>ToggleConfigs</Name>
+      <Type>bool</Type>
+      <Desc>Toggle configurations 0 = Playback will only use the selected buffer. 1 = Playback will use both buffers.</Desc>
+    </Member>
+  </Class>
+</ScriptAPIDoc>

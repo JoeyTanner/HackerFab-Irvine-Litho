@@ -1,0 +1,126 @@
+<!--                                  
+ Copyright (c) 2024 Texas Instruments
+                                      
+
+ NOTE: This file is auto generated from a command definition file.
+       Please do not modify the file directly.                    
+
+ Command Spec Version : 1.1
+ -->
+<?xml-stylesheet type="text/xsl" href="ScriptAPIDoc.xsl"?>
+<ScriptAPIDoc>
+  <Function>
+    <Name>ReadRegisterSpi</Name>
+    <OpCode>01</OpCode>
+    <Desc>Read Register spi</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteRegisterSpi</Name>
+    <OpCode>02</OpCode>
+    <Desc>Write Register spi</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteRegister</Name>
+    <OpCode>F1</OpCode>
+    <Desc>Write Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>ReadRegister</Name>
+    <OpCode>F2</OpCode>
+    <Desc>Read Register</Desc>
+    <TIInternal>False</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Class>
+    <Name>ExecutionSummary</Name>
+    <TIInternal>False</TIInternal>
+    <Member>
+      <Name>Successful</Name>
+      <Type>bool</Type>
+      <Desc>A boolean value indicating if the command execution was successful.</Desc>
+    </Member>
+    <Member>
+      <Name>Command</Name>
+      <Type>str</Type>
+      <Desc>The command that was executed.</Desc>
+    </Member>
+  </Class>
+</ScriptAPIDoc>

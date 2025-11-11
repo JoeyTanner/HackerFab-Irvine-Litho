@@ -1,0 +1,425 @@
+<!--                                  
+ Copyright (c) 2023 Texas Instruments
+                                      
+
+ NOTE: This file is auto generated from a command definition file.
+       Please do not modify the file directly.                    
+
+ Command Spec Version : 0.1
+ -->
+<?xml-stylesheet type="text/xsl" href="ScriptAPIDoc.xsl"?>
+<ScriptAPIDoc>
+  <Function>
+    <Name>ReadMode</Name>
+    <OpCode>00</OpCode>
+    <Desc>Returns whether we are in Bootloader or in Main Application. If in Main Application, it also indicates whether the SW is built for Dual Controller or Formatter Only system.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>BootOrMainApp</Name>
+        <Type>BootOrMainApp</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>ControllerConfiguration</Name>
+        <Type>ControllerConfiguration</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>FormatterOrFullApp</Name>
+        <Type>FormatterOrFullApp</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadVersion</Name>
+    <OpCode>01</OpCode>
+    <Desc>Reads the SW version of the SW Application.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Major</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>Minor</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>Patch</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>WriteSwitchMode</Name>
+    <OpCode>02</OpCode>
+    <Desc>Used to switch from Bootloader SW to Application SW and vice versa.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>BootOrMainApp</Name>
+        <Type>BootOrMainApp</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteMemory</Name>
+    <OpCode>10</OpCode>
+    <Desc>Attempts to directly write a 32-bit value to a 32-bit address</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>Value</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>ReadMemory</Name>
+    <OpCode>10</OpCode>
+    <Desc>Returns the 32-bit value read from the provided 32-bit memory address.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Value</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>ReadFlashId</Name>
+    <OpCode>20</OpCode>
+    <Desc>Reads the flash device manufacturer and long device ID.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>ManufacturerId</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>DeviceId</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFlashSectorInfo</Name>
+    <OpCode>21</OpCode>
+    <Desc>Reads the sector information from a CFI compliant flash. This command will fail if the flash is non-CFI compliant.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>SectorInfo</Name>
+        <Type>List[SectorInfo]</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>WriteUnlockFlashUpdate</Name>
+    <OpCode>22</OpCode>
+    <Desc>Unlocks the flash device for flash update operation (erase/write).</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>WriteLockFlashUpdate</Name>
+    <OpCode>22</OpCode>
+    <Desc>Unlocks the flash device for flash update operation (erase/write).</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>ReadFlashUpdateLock</Name>
+    <OpCode>22</OpCode>
+    <Desc>Returns whether the flash is in unlocked state or not.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Unlocked</Name>
+        <Type>bool</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters />
+  </Function>
+  <Function>
+    <Name>WriteEraseSector</Name>
+    <OpCode>23</OpCode>
+    <Desc>Erases the flash sector where the given address falls in.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>AddressOffset</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteInitFlashOperation</Name>
+    <OpCode>24</OpCode>
+    <Desc>Sets up the flash address and size for a Flash Read or Flash Write operation. The flash address and read/write size sent to this command shall both be even.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>FlashAddressOffset</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>FlashReadWriteSize</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>WriteFlash</Name>
+    <OpCode>25</OpCode>
+    <Desc>Programs an already erased memory location with the given data.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Data</Name>
+        <Type>bytearray</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>ReadFlash</Name>
+    <OpCode>25</OpCode>
+    <Desc>Reads data from any flash address.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>bytearray</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>NumBytes</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>ReadChecksum</Name>
+    <OpCode>26</OpCode>
+    <Desc>Returns the checksum starting at the given address for the specified number of bytes.</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>SimpleChecksum</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>SumOfSumChecksum</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>StartAddressOffset</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>NumBytes</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Enum>
+    <Name>BootOrMainApp</Name>
+    <TIInternal>True</TIInternal>
+    <Member>
+      <Name>BootLoader</Name>
+      <Desc>Boot Loader</Desc>
+      <Value>0</Value>
+    </Member>
+    <Member>
+      <Name>MainApplication</Name>
+      <Desc>Main Application</Desc>
+      <Value>1</Value>
+    </Member>
+  </Enum>
+  <Enum>
+    <Name>ControllerConfiguration</Name>
+    <TIInternal>True</TIInternal>
+    <Member>
+      <Name>SingleController</Name>
+      <Desc>Single Controller</Desc>
+      <Value>0</Value>
+    </Member>
+    <Member>
+      <Name>MultipleControllers</Name>
+      <Desc>Multiple Controllers</Desc>
+      <Value>1</Value>
+    </Member>
+  </Enum>
+  <Enum>
+    <Name>FormatterOrFullApp</Name>
+    <TIInternal>True</TIInternal>
+    <Member>
+      <Name>FullApplication</Name>
+      <Desc>Full Application</Desc>
+      <Value>0</Value>
+    </Member>
+    <Member>
+      <Name>FormatterOnly</Name>
+      <Desc>Formatter Only</Desc>
+      <Value>1</Value>
+    </Member>
+  </Enum>
+  <Class>
+    <Name>ExecutionSummary</Name>
+    <TIInternal>False</TIInternal>
+    <Member>
+      <Name>Successful</Name>
+      <Type>bool</Type>
+      <Desc>A boolean value indicating if the command execution was successful.</Desc>
+    </Member>
+    <Member>
+      <Name>Command</Name>
+      <Type>str</Type>
+      <Desc>The command that was executed.</Desc>
+    </Member>
+  </Class>
+  <Class>
+    <Name>SectorInfo</Name>
+    <TIInternal>False</TIInternal>
+    <Member>
+      <Name>SectorCapacity</Name>
+      <Type>int</Type>
+      <Desc></Desc>
+    </Member>
+    <Member>
+      <Name>NumberOfSectors</Name>
+      <Type>int</Type>
+      <Desc></Desc>
+    </Member>
+  </Class>
+</ScriptAPIDoc>

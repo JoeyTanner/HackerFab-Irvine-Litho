@@ -1,0 +1,95 @@
+<!--                                  
+ Copyright (c) 2024 Texas Instruments
+                                      
+
+ NOTE: This file is auto generated from a command definition file.
+       Please do not modify the file directly.                    
+
+ Command Spec Version : 1.0
+ -->
+<?xml-stylesheet type="text/xsl" href="ScriptAPIDoc.xsl"?>
+<ScriptAPIDoc>
+  <Function>
+    <Name>WriteMemory</Name>
+    <OpCode>0100</OpCode>
+    <Desc>Write Memory</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Function>
+    <Name>ReadMemory</Name>
+    <OpCode>0100</OpCode>
+    <Desc>Read Memory</Desc>
+    <TIInternal>True</TIInternal>
+    <Returns>
+      <Param>
+        <Name>Summary</Name>
+        <Type>ExecutionSummary</Type>
+        <Desc>Status and summary of command execution.</Desc>
+      </Param>
+      <Param>
+        <Name>Data</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Returns>
+    <Parameters>
+      <Param>
+        <Name>Address</Name>
+        <Type>int</Type>
+        <Desc></Desc>
+      </Param>
+    </Parameters>
+  </Function>
+  <Enum>
+    <Name>InputSource</Name>
+    <TIInternal>True</TIInternal>
+    <Member>
+      <Name>ExternalVideoPort</Name>
+      <Desc>External Video Port</Desc>
+      <Value>0</Value>
+    </Member>
+    <Member>
+      <Name>TestPatternGenerator</Name>
+      <Desc>Test Pattern Generator</Desc>
+      <Value>1</Value>
+    </Member>
+    <Member>
+      <Name>SplashScreen</Name>
+      <Desc>Splash Screen</Desc>
+      <Value>2</Value>
+    </Member>
+  </Enum>
+  <Class>
+    <Name>ExecutionSummary</Name>
+    <TIInternal>False</TIInternal>
+    <Member>
+      <Name>Successful</Name>
+      <Type>bool</Type>
+      <Desc>A boolean value indicating if the command execution was successful.</Desc>
+    </Member>
+    <Member>
+      <Name>Command</Name>
+      <Type>str</Type>
+      <Desc>The command that was executed.</Desc>
+    </Member>
+  </Class>
+</ScriptAPIDoc>
