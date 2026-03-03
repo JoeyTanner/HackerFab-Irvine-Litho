@@ -1,0 +1,124 @@
+// PIN DEFINITIONS 
+#define X_STEP_PIN 2
+#define X_DIR_PIN 3
+
+#define Y_STEP_PIN 4
+#define Y_DIR_PIN 5
+
+#define Z_STEP_PIN 6
+#define Z_DIR_PIN 7
+
+// Constants
+const long PULSES_PER_UNIT = 40000;
+const int STEP_DELAY_US = 20;
+
+// Function declarations
+void moveAxis(int stepPin, int dirPin, long units);
+void moveX(long units);
+void moveY(long units);
+void moveZ(long units);
+
+// Axis Function
+void moveAxis(int stepPin, int dirPin, long units) {
+
+  long moveAmount = units * PULSES_PER_UNIT;
+
+  Serial.print("Moving ");
+  Serial.print(moveAmount);
+  Serial.println(" pulses");
+
+  // Move forward
+  digitalWrite(dirPin, HIGH);
+
+  for (long i = 0; i < moveAmount; i++) {
+    digitalWrite(stepPin, HIGH);
+    delayMicroseconds(STEP_DELAY_US);
+    digitalWrite(stepPin, LOW);
+    delayMicroseconds(STEP_DELAY_US);
+  }
+
+  delay(500);
+
+  Serial.println("Returning to zero");
+
+  // Move backward
+  digitalWrite(dirPin, LOW);
+
+  for (long i = 0; i < moveAmount; i++) {
+    digitalWrite(stepPin, HIGH);
+    delayMicroseconds(STEP_DELAY_US);
+    digitalWrite(stepPin, LOW);
+    delayMicroseconds(STEP_DELAY_US);
+  }
+}
+
+// XYZ move functions 
+void moveX(long units) {
+  Serial.println("Moving X axis");
+  moveAxis(X_STEP_PIN, X_DIR_PIN, units);
+}
+
+void moveY(long units) {
+  Serial.println("Moving Y axis");
+  moveAxis(Y_STEP_PIN, Y_DIR_PIN, units);
+}
+
+void moveZ(long units) {
+  Serial.println("Moving Z axis");
+  moveAxis(Z_STEP_PIN, Z_DIR_PIN, units);
+}
+
+void setup() {
+
+  pinMode(X_STEP_PIN, OUTPUT);
+  pinMode(X_DIR_PIN, OUTPUT);
+
+  pinMode(Y_STEP_PIN, OUTPUT);
+  pinMode(Y_DIR_PIN, OUTPUT);
+
+  pinMode(Z_STEP_PIN, OUTPUT);
+  pinMode(Z_DIR_PIN, OUTPUT);
+
+  Serial.begin(115200);
+  Serial.println("Enter axis (X Y Z) then integer (rev)");
+  Serial.println("Example: X 5");
+}
+
+void loop() {
+
+  if (Serial.available() > 0) {
+    if (Serial.available() > 0) {
+    // Read the axis as a string until the space
+    String axis = Serial.readStringUntil(' ');
+    
+    // Read the rest of the buffer as the integer
+    int value = Serial.parseInt();
+
+    // Clear the buffer of any remaining newline characters (\n or \r)
+    while(Serial.available() > 0) { Serial.read(); }
+
+    // Logic Check
+    if (axis.length() > 0) {
+      Serial.print("Axis detected: ");
+      Serial.println(axis);
+      Serial.print("Value detected: ");
+      Serial.println(value);
+    }
+
+    if (value != 0) {
+
+      if (axis == "X" || axis == "x") {
+      moveX(value);
+      }
+      else if (axis == "Y" || axis == "y") {
+      moveY(value);
+      }
+      else if (axis == "Z" || axis == "z") {
+      moveZ(value);
+      }
+
+      Serial.println("Motion complete.\n");
+    }
+  }
+}
+}
