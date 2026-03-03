@@ -1,0 +1,79 @@
+// Pin Definitions
+#define X_STEP_PIN 2
+#define X_DIR_PIN  3
+
+#define Y_STEP_PIN 4
+#define Y_DIR_PIN  5
+
+#define Z_STEP_PIN 6
+#define Z_DIR_PIN  7
+
+// Constants
+const long PULSES_PER_REV = 40000;
+const float SCREW_PITCH_MM = 4.0;
+const float PULSES_PER_MM = PULSES_PER_REV / SCREW_PITCH_MM;
+const int STEP_DELAY_US = 20;
+
+// Function Declaration
+void moveAxis(int stepPin, int dirPin, float mm);
+
+// Axis function
+void moveAxis(int stepPin, int dirPin, float mm) 
+{
+
+  long totalPulses = mm * PULSES_PER_MM; // int*8000
+
+  digitalWrite(dirPin, HIGH);
+
+  for (long i = 0; i < totalPulses; i++) {
+    digitalWrite(stepPin, HIGH);
+    delayMicroseconds(STEP_DELAY_US);
+    digitalWrite(stepPin, LOW);
+    delayMicroseconds(STEP_DELAY_US);
+  }
+}
+
+void setup() {
+
+  pinMode(X_STEP_PIN, OUTPUT);
+  pinMode(X_DIR_PIN, OUTPUT);
+
+  pinMode(Y_STEP_PIN, OUTPUT);
+  pinMode(Y_DIR_PIN, OUTPUT);
+
+  pinMode(Z_STEP_PIN, OUTPUT);
+  pinMode(Z_DIR_PIN, OUTPUT);
+
+  Serial.begin(115200);
+}
+
+void loop() {
+
+  float x_mm, y_mm, z_mm;
+
+  Serial.println("Enter X distance in mm:");
+  while (Serial.available() == 0) {} //blocking wait loop
+  x_mm = Serial.parseFloat();
+
+  while (Serial.available() > 0) Serial.read();
+
+  Serial.println("Enter Y distance in mm:");
+  while (Serial.available() == 0) {}
+  y_mm = Serial.parseFloat();
+
+  while (Serial.available() > 0) Serial.read();
+
+  Serial.println("Enter Z distance in mm:");
+  while (Serial.available() == 0) {}
+  z_mm = Serial.parseFloat();
+
+  while (Serial.available() > 0) Serial.read();
+
+  moveAxis(X_STEP_PIN, X_DIR_PIN, x_mm);
+  moveAxis(Y_STEP_PIN, Y_DIR_PIN, y_mm);
+  moveAxis(Z_STEP_PIN, Z_DIR_PIN, z_mm);
+
+  Serial.println("Motion complete.\n");
+
+  delay(1000);
+}
