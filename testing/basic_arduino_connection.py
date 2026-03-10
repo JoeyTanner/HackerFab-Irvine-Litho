@@ -30,6 +30,6 @@ class SerialConnection:
 
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     connection = SerialConnection()
     connection.write_num_rotations(1)
