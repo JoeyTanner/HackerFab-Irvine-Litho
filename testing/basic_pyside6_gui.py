@@ -17,15 +17,15 @@ class MainWindow(QMainWindow):
     """
     def __init__(self):
         super().__init__()
-        self.input_text = None
-
         self.setWindowTitle('Lithostepper GUI')
+        self._connection = None
 
+        self.input_text = None
         self.output_label = QLabel("Input will appear here")
 
         button = QPushButton('Connect arduino')
         button.clicked.connect(self.try_motor_connection)
-        button.setFixedSize(QSize(100, 50))
+        button.setFixedSize(QSize(120, 50))
 
         self.submit_button = QPushButton("Submit")
         self.submit_button.clicked.connect(self.on_submit_clicked)
@@ -46,16 +46,14 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(container)
 
     def try_motor_connection(self):
-        try:
-            basic_arduino_connection.main()
-        except:
-            print('Failed connecting the motor')
+        #try:
+        self._connection = basic_arduino_connection.SerialConnection()
 
     def on_submit_clicked(self):
         # Get the text from the QLineEdit using the .text() method
-        self.input_num = int(self.text_input.text().strip())
-        self.output_label.setText(f"You entered: {self.input_num}")
-        print(f'You entered: {self.input_num}')
+        input_num = self.text_input.text().strip()
+        self.output_label.setText(f"You entered: {input_num}")
+        self._connection.write_num_rotations(input_num)
 
     def get_integer(self):
         return self.input_text

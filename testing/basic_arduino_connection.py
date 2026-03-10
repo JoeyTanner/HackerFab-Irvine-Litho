@@ -2,23 +2,34 @@ import time
 import serial
 import serial.tools.list_ports
 
-def get_serial():
-    ports = serial.tools.list_ports.comports()
-    for port in ports:
-        if "Arduino" in port.description:
-            return port.device
-    return None
+BAUD_RATE = 115200
 
-def connect_arduino(port, num):
-    ser = serial.Serial(port, 115200)
-    time.sleep(2)
-    # num = input("Enter an integer ")
-    ser.write(f"{num}\n".encode())
-    ser.close()
 
-def main():
-    port = get_serial()
-    connect_arduino(port)
+class SerialConnection:
+
+    def __init__(self):
+        self._port = SerialConnection.get_serial()
+
+
+    @staticmethod
+    def get_serial():
+        ports = serial.tools.list_ports.comports()
+        for port in ports:
+            if "Arduino" in port.description:
+                print('Arduino connected')
+                return port.device
+        print('Failed to connect to arduino')
+        return None
+
+
+    def write_num_rotations(self, num):
+        ser = serial.Serial(self._port, BAUD_RATE)
+        time.sleep(2)
+        ser.write(f"X {num}\n".encode())
+        ser.close()
+
+
 
 if __name__ == "main":
-    main()
+    connection = SerialConnection()
+    connection.write_num_rotations(1)
