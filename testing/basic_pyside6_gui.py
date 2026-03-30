@@ -27,17 +27,30 @@ class MainWindow(QMainWindow):
         button.clicked.connect(self.try_motor_connection)
         button.setFixedSize(QSize(120, 50))
 
+        self.text_input = QLineEdit()
+        self.text_input.setPlaceholderText("Enter test/dummy integer input: ") # Add placeholder text
         self.submit_button = QPushButton("Submit")
         self.submit_button.clicked.connect(self.on_submit_clicked)
 
-        self.text_input = QLineEdit()
-        self.text_input.setPlaceholderText("Enter integer input: ") # Add placeholder text
+        self.wafer_len = QLineEdit()
+        self.wafer_len.setPlaceholderText("Enter wafer length: ")  # Add placeholder text
+        self.submit_wafer_len = QPushButton("Submit")
+        self.submit_wafer_len.clicked.connect(self.on_submit_wafer_len)
+
+        self.wafer_width = QLineEdit()
+        self.wafer_width.setPlaceholderText("Enter wafer width: ")  # Add placeholder text
+        self.submit_wafer_width = QPushButton("Submit")
+        self.submit_wafer_width.clicked.connect(self.on_submit_wafer_width)
 
         layout = QVBoxLayout()
         layout.addWidget(button)
         layout.addWidget(self.text_input)
         layout.addWidget(self.submit_button)
         layout.addWidget(self.output_label)
+        layout.addWidget(self.wafer_len)
+        layout.addWidget(self.submit_wafer_len)
+        layout.addWidget(self.wafer_width)
+        layout.addWidget(self.submit_wafer_width)
 
         container = QWidget()
         container.setLayout(layout)
@@ -55,8 +68,18 @@ class MainWindow(QMainWindow):
         self.output_label.setText(f"You entered: {input_num}")
         self._connection.write_num_rotations(input_num)
 
+    def on_submit_wafer_len(self):
+        print(f'Wafer width entered: {self.wafer_len.text().strip()}')
+        self._connection.write_num_rotations(self.wafer_len.text().strip())
+
+    def on_submit_wafer_width(self):
+        print(f'Wafer width entered: {self.wafer_width.text().strip()}')
+        self._connection.write_num_rotations(self.wafer_width.text().strip())
+
     def get_integer(self):
         return self.input_text
+
+
 
 
 if __name__ == '__main__':
