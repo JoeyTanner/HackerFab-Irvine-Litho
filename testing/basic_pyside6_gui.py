@@ -22,6 +22,7 @@ class MainWindow(QMainWindow):
 
         self.input_text = None
         self.output_label = QLabel("Input will appear here")
+        self.output_label_cur_pos = QLabel("Current position will appear here")
 
         button = QPushButton('Connect arduino')
         button.clicked.connect(self.try_motor_connection)
@@ -42,6 +43,9 @@ class MainWindow(QMainWindow):
         self.submit_wafer_width = QPushButton("Submit")
         self.submit_wafer_width.clicked.connect(self.on_submit_wafer_width)
 
+        self.get_cur_pos = QPushButton("Get current position")
+        self.get_cur_pos.clicked.connect(self.on_get_cur_pos)
+
         layout = QVBoxLayout()
         layout.addWidget(button)
         layout.addWidget(self.text_input)
@@ -51,6 +55,8 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.submit_wafer_len)
         layout.addWidget(self.wafer_width)
         layout.addWidget(self.submit_wafer_width)
+        layout.addWidget(self.get_cur_pos)
+        layout.addWidget(self.output_label_cur_pos)
 
         container = QWidget()
         container.setLayout(layout)
@@ -75,6 +81,11 @@ class MainWindow(QMainWindow):
     def on_submit_wafer_width(self):
         print(f'Wafer width entered: {self.wafer_width.text().strip()}')
         self._connection.write_num_rotations(self.wafer_width.text().strip())
+
+    def on_get_cur_pos(self):
+        print('Requesting current position')
+        self.output_label_cur_pos.setText("Current pos requested")
+        # add serial code
 
     def get_integer(self):
         return self.input_text
