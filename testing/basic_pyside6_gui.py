@@ -34,6 +34,26 @@ class MainWindow(QMainWindow):
         self.submit_button = QPushButton("Submit")
         self.submit_button.clicked.connect(self.on_submit_clicked)
 
+        # Basic x,y,z movement
+        movement_header = QLabel("Movement Controls (mm)")
+        movement_header.setAlignment(Qt.AlignCenter)
+        self.movement_input = QLineEdit()
+        self.movement_input.setPlaceholderText("Enter Distance (mm):")
+        self.axis_input1 = QLineEdit()
+        self.axis_input1.setPlaceholderText("Axis (X, Y, Z):")
+        self.move_button = QPushButton("Submit")
+        #self.move_button.clicked.connect(self.on_move_clicked)
+
+        # x,y,z rotations
+        rotation_header = QLabel("Rotation Controls")
+        rotation_header.setAlignment(Qt.AlignCenter)
+        self.rotation_input = QLineEdit()
+        self.rotation_input.setPlaceholderText("Number of rotations:")
+        self.axis_input2 = QLineEdit()
+        self.axis_input2.setPlaceholderText("Axis (X, Y, Z):")
+        self.rotation_button = QPushButton("Submit")
+        #self.rotation_button.clicked.connect(self.on_rotation_clicked)
+
         # Spacing distance
         self.spacing_input = QLineEdit()
         self.spacing_input.setPlaceholderText("Spacing distance (mm):")
@@ -46,6 +66,14 @@ class MainWindow(QMainWindow):
         self.emergency_button = QPushButton("EMERGENCY STOP")
         self.emergency_button.setStyleSheet("background-color: red; color: white; font-weight: bold;")
         #self.emergency_button.clicked.connect(self.on_emergency_stop)
+
+        # Set exposure time
+        exposure_time_header = QLabel("Exposure Time (ms)")
+        exposure_time_header.setAlignment(Qt.AlignCenter)
+        self.exposure_input = QLineEdit()
+        self.exposure_input.setPlaceholderText("Exposure time (ms):")
+        self.exposure_button = QPushButton("Submit")
+        #self.exposure_button.clicked.connect(self.on_exposure_clicked)
 
         # Enter wafer dimensions
         self.wafer_len = QLineEdit()
@@ -67,6 +95,21 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.text_input)
         layout.addWidget(self.submit_button)
         layout.addWidget(self.output_label)
+
+
+        layout.addWidget(movement_header)
+        layout.addWidget(self.movement_input)
+        layout.addWidget(self.axis_input1)
+        layout.addWidget(self.move_button)
+
+        layout.addWidget(rotation_header)
+        layout.addWidget(self.rotation_input)
+        layout.addWidget(self.axis_input2)
+        layout.addWidget(self.rotation_button)
+
+        layout.addWidget(exposure_time_header)
+        layout.addWidget(self.exposure_input)
+        layout.addWidget(self.exposure_button)
 
         layout.addWidget(self.spacing_input)
         layout.addWidget(self.stop_time_input)
