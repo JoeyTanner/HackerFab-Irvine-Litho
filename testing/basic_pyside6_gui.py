@@ -151,6 +151,10 @@ class MainWindow(QMainWindow):
         print('Requesting current position')
         self.output_label_cur_pos.setText("Current pos requested")
         # add serial code
+
+    def on_move_clicked(self):
+        pass
+
 '''
 this is where you would implement the method to send a stop command to the arduino when the emergency button is clicked.
 u  need to define a method in your basic_arduino_connection class that sends the appropriate command to the arduino to stop it

@@ -2,13 +2,12 @@ import time
 import serial
 import serial.tools.list_ports
 
-BAUD_RATE = 115200
-
 
 class SerialConnection:
 
     def __init__(self):
         self._port = SerialConnection.get_serial()
+        self.BAUD_RATE = 115200
 
 
     @staticmethod
@@ -22,8 +21,15 @@ class SerialConnection:
         return None
 
 
+    def write(self, message: str):
+        ser = serial.Serial(self._port, self.BAUD_RATE)
+        time.sleep(1)
+        ser.write(message.encode())
+        ser.close()
+
+
     def write_num_rotations(self, num):
-        ser = serial.Serial(self._port, BAUD_RATE)
+        ser = serial.Serial(self._port, self.BAUD_RATE)
         time.sleep(2)
         ser.write(f"X {num}\n".encode())
         ser.close()
