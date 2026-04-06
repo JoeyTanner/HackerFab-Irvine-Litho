@@ -21,9 +21,6 @@ const int EEPROM_X_ADDR = 0;
 const int EEPROM_Y_ADDR = EEPROM_X_ADDR + sizeof(long);
 const int EEPROM_Z_ADDR = EEPROM_Y_ADDR + sizeof(long);
 
-// Emergency stop flag
-volatile bool stopRequested = false;
-
 // Function declarations
 void moveAxis(int stepPin, int dirPin, long units);
 void moveAxis(long displacement, char axis);
@@ -59,10 +56,6 @@ void moveAxis(int stepPin, int dirPin, long units) {
   }
 
   for (long i = 0; i < moveAmount; i++) {
-    if (stopRequested) {
-      Serial.println("Motion halted by emergency stop.");
-      return; // exit mid-move, position already tracked incrementally
-    }
     digitalWrite(stepPin, HIGH);
     delayMicroseconds(STEP_DELAY_US);
     digitalWrite(stepPin, LOW);
@@ -99,9 +92,6 @@ void processInput(String input) {
   }
 
   char mode = input.charAt(0);
-
-  // Clear stop flag before any new motion command
-  if (mode != 'S') stopRequested = false;
 
   switch (mode) {
     case 'S': {
@@ -177,7 +167,7 @@ void savePosition() {
   EEPROM.put(EEPROM_Z_ADDR, zPosition);
 }
 
-// Emergency stop
+// Emergency Stop
 void emergencyStop() {
   stopRequested = true;
   savePosition();
@@ -186,6 +176,7 @@ void emergencyStop() {
   Serial.print(" Y: "); Serial.print(yPosition);
   Serial.print(" Z: "); Serial.println(zPosition);
 }
+
 
 // Move by axis
 void moveAxis(long displacement, char axis) {
@@ -210,7 +201,23 @@ void moveAxis(long displacement, char axis) {
 }
 
 void moveOnGrid(long xCoord, long yCoord, long zCoord) {
-  // To be implemented
+  long dx = xCoord - xPosition;
+  long dy = yCoord - yPosition;
+  long dz = zCoord - zPosition;
+
+  Serial.print("Moving to grid position: X=");
+  Serial.print(xCoord);
+  Serial.print(" Y=");
+  Serial.print(yCoord);
+  Serial.print(" Z=");
+  Serial.println(zCoord);
+
+  if (dz != 0) moveZ(dz);
+  if (dx != 0) moveX(dx);
+  if (dy != 0) moveY(dy);
+
+  savePosition();
+  Serial.println("Grid move complete.");
 }
 
 // Set grid origin
@@ -222,7 +229,42 @@ void setOrigin() {
 }
 
 void createMatrix(long waferLength, long waferSpacing, long xSize, long ySize) {
-  // To be implemented
+  // Calculate how many die positions fit along each axis
+  long step = waferLength + waferSpacing;
+  long cols = xSize / step;
+  long rows = ySize / step;
+
+  if (cols <= 0 || rows <= 0) {
+    Serial.println("Matrix error: wafer dimensions too small for given die size and spacing.");
+    return;
+  }
+
+  Serial.print("Creating matrix: ");
+  Serial.print(cols);
+  Serial.print(" cols x ");
+  Serial.print(rows);
+  Serial.println(" rows");
+
+  // Snake/raster scan — avoids long return travel between rows
+  for (long row = 0; row < rows; row++) {
+    long yCoord = row * step;
+
+    for (long col = 0; col < cols; col++) {
+      // Alternate scan direction each row to minimise travel
+      long xCoord = (row % 2 == 0) ? (col * step) : ((cols - 1 - col) * step);
+
+      Serial.print("Exposing die at col=");
+      Serial.print(col);
+      Serial.print(" row=");
+      Serial.println(row);
+
+      moveOnGrid(xCoord, yCoord, zPosition); // keep Z unchanged during matrix scan
+    }
+  }
+
+  // Return to origin after full matrix is complete
+  moveOnGrid(0, 0, zPosition);
+  Serial.println("Matrix complete. Returned to origin.");
 }
 
 void setup() {
@@ -256,3 +298,4 @@ void loop() {
     }
   }
 }
+8 KB
