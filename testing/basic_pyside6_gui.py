@@ -34,6 +34,22 @@ class MainWindow(QMainWindow):
         self.submit_button = QPushButton("Submit")
         self.submit_button.clicked.connect(self.on_submit_clicked)
 
+        # 3D movement controls
+        self.move3d_header = QLabel("3D Movement (mm)")
+        self.move3d_header.setAlignment(Qt.AlignCenter)
+
+        self.x_input = QLineEdit()
+        self.x_input.setPlaceholderText("X (mm)")
+
+        self.y_input = QLineEdit()
+        self.y_input.setPlaceholderText("Y (mm)")
+
+        self.z_input = QLineEdit()
+        self.z_input.setPlaceholderText("Z (mm)")
+
+        self.move3d_button = QPushButton("Move XYZ")
+        self.move3d_button.clicked.connect(self.on_move3d_clicked)
+
         # Basic x,y,z movement
         self.movement_header = QLabel("Movement Controls (mm)")
         self.movement_header.setAlignment(Qt.AlignCenter)
@@ -115,6 +131,12 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.submit_button, 2, 0)
         layout.addWidget(self.output_label, 3, 0)
 
+        layout.addWidget(self.move3d_header, 0, 7)
+        layout.addWidget(self.x_input, 1, 7)
+        layout.addWidget(self.y_input, 2, 7)
+        layout.addWidget(self.z_input, 3, 7)
+        layout.addWidget(self.move3d_button, 4, 7)
+
         layout.addWidget(self.movement_header, 0, 1)
         layout.addWidget(self.movement_input, 1, 1)
         layout.addWidget(self.axis_input1, 2, 1)
@@ -174,6 +196,16 @@ class MainWindow(QMainWindow):
             return
         self._connection.wafer_matrix(self.wafer_len.text(), self.wafer_width.text(),
                                       self.matrix_rows.text(), self.matrix_cols.text())
+    def on_move3d_clicked(self):
+        x = self.x_input.text().strip()
+        y = self.y_input.text().strip()
+        z = self.z_input.text().strip()
+
+        if x == '' or y == '' or z == '':
+            print("All X, Y, Z inputs required")
+            return
+
+        self._connection.grid_movement(x, y, z)
 
     def on_get_cur_pos(self):
         # print('Requesting current position')

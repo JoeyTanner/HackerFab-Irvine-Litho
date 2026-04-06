@@ -8,6 +8,7 @@ class SerialConnection:
     def __init__(self):
         self._port = SerialConnection.get_serial()
         self.BAUD_RATE = 115200
+        self.ser = serial.Serial(self._port, self.BAUD_RATE)
 
 
     @staticmethod
@@ -29,16 +30,15 @@ class SerialConnection:
         time.sleep(2)
         print(str(ser.readline().decode('utf-8')))
         print('finished')
-        ser.close()
+        #ser.close()
 
 
     def write_num_rotations(self, num):
-        ser = serial.Serial(self._port, self.BAUD_RATE)
         time.sleep(1)
-        ser.write(f"A {num} X\n".encode())
+        self.ser.write(f"A {num} X\n".encode())
         print('wrote')
-        print(ser.read_all())
-        ser.close()
+        print(self.ser.read_all())
+        #ser.close()
 
     def single_axis_movement(self, axis, distance):
         print(f'distance: {distance}, axis: {axis}')
