@@ -23,19 +23,41 @@ class SerialConnection:
 
     def write(self, message: str):
         ser = serial.Serial(self._port, self.BAUD_RATE)
-        time.sleep(1)
-        ser.write(message.encode())
+        time.sleep(2)
+        ser.write(f'{message}\n'.encode())
+        print(f'{message}\n')
+        time.sleep(2)
+        print(str(ser.readline().decode('utf-8')))
+        print('finished')
         ser.close()
 
 
     def write_num_rotations(self, num):
         ser = serial.Serial(self._port, self.BAUD_RATE)
-        time.sleep(2)
-        ser.write(f"X {num}\n".encode())
+        time.sleep(1)
+        ser.write(f"A {num} X\n".encode())
+        print('wrote')
+        print(ser.read_all())
         ser.close()
+
+    def single_axis_movement(self, axis, distance):
+        print(f'distance: {distance}, axis: {axis}')
+        self.write(f'A {distance} {axis}')
+
+    def grid_movement(self, x, y, z):
+        self.write(f'G {x} {y} {z}')
+
+    def send_emergency_stop(self):
+        self.write('S')
+
+    def wafer_matrix(self, wafer_len, wafer_width, matrix_rows, matrix_cols):
+        self.write(f'M {wafer_len} {wafer_width} {matrix_rows} {matrix_cols}')
+
+    def zero_grid(self):
+        self.write('Z')
 
 
 
 if __name__ == "__main__":
     connection = SerialConnection()
-    connection.write_num_rotations(1)
+    connection.single_axis_movement('X', '5000')
