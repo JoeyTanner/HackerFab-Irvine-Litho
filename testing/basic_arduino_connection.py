@@ -23,18 +23,17 @@ class SerialConnection:
 
 
     def write(self, message: str):
-        ser = serial.Serial(self._port, self.BAUD_RATE)
         time.sleep(2)
-        ser.write(f'{message}\n'.encode())
+        self.ser.write(f'{message}\n'.encode())
         print(f'{message}\n')
         time.sleep(2)
-        print(str(ser.readline().decode('utf-8')))
+        print(str(self.ser.readline().decode('utf-8')))
         print('finished')
         #ser.close()
 
 
     def write_num_rotations(self, num):
-        time.sleep(1)
+        time.sleep(2)
         self.ser.write(f"A {num} X\n".encode())
         print('wrote')
         print(self.ser.read_all())
