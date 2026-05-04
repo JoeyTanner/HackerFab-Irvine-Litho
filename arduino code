@@ -1,31 +1,61 @@
-// Pin Definitions
+#include <EEPROM.h>
+
+// PIN DEFINITIONS
 #define X_STEP_PIN 2
-#define X_DIR_PIN  3
+#define X_DIR_PIN 3
 
 #define Y_STEP_PIN 4
-#define Y_DIR_PIN  5
+#define Y_DIR_PIN 5
 
 #define Z_STEP_PIN 6
-#define Z_DIR_PIN  7
+#define Z_DIR_PIN 7
 
 // Constants
-const long PULSES_PER_REV = 40000;
-const float SCREW_PITCH_MM = 4.0;
-const float PULSES_PER_MM = PULSES_PER_REV / SCREW_PITCH_MM;
+const long PULSES_PER_ROTATION = 40000;
+const long UNITS_PER_ROTATION = 4000; // um per rotation
+const long PULSES_PER_UNIT = PULSES_PER_ROTATION / UNITS_PER_ROTATION;
 const int STEP_DELAY_US = 20;
 
-// Function Declaration
-void moveAxis(int stepPin, int dirPin, float mm);
+// EEPROM addresses
+const int EEPROM_X_ADDR = 0;
+const int EEPROM_Y_ADDR = EEPROM_X_ADDR + sizeof(long);
+const int EEPROM_Z_ADDR = EEPROM_Y_ADDR + sizeof(long);
 
-// Axis function
-void moveAxis(int stepPin, int dirPin, float mm) 
-{
+// Function declarations
+void moveAxis(int stepPin, int dirPin, long units);
+void moveAxis(long displacement, char axis);
+void moveX(long units);
+void moveY(long units);
+void moveZ(long units);
 
-  long totalPulses = mm * PULSES_PER_MM; // int*8000
+void processInput(String input);
+void savePosition();
+void emergencyStop();
+void moveOnGrid(long xCoord, long yCoord, long zCoord);
+void setOrigin();
+void createMatrix(long waferLength, long waferSpacing, long xSize, long ySize);
 
-  digitalWrite(dirPin, HIGH);
+// Global position values
+long xPosition = 0;
+long yPosition = 0;
+long zPosition = 0;
 
-  for (long i = 0; i < totalPulses; i++) {
+// Axis pulse function
+void moveAxis(int stepPin, int dirPin, long units) {
+  long moveAmount = units * PULSES_PER_UNIT;
+
+  Serial.print("Moving ");
+  Serial.print(moveAmount);
+  Serial.println(" pulses");
+
+  if (moveAmount >= 0) {
+    digitalWrite(dirPin, HIGH);
+  } else {
+    digitalWrite(dirPin, LOW);
+    moveAmount = -moveAmount;
+  }
+
+  for (long i = 0; i < moveAmount; i++) {
     digitalWrite(stepPin, HIGH);
     delayMicroseconds(STEP_DELAY_US);
     digitalWrite(stepPin, LOW);
@@ -33,8 +63,211 @@ void moveAxis(int stepPin, int dirPin, float mm)
   }
 }
 
-void setup() {
+// XYZ move functions
+void moveX(long units) {
+  Serial.println("Moving X axis");
+  moveAxis(X_STEP_PIN, X_DIR_PIN, units);
+  xPosition += units;
+}
 
+void moveY(long units) {
+  Serial.println("Moving Y axis");
+  moveAxis(Y_STEP_PIN, Y_DIR_PIN, units);
+  yPosition += units;
+}
+
+void moveZ(long units) {
+  Serial.println("Moving Z axis");
+  moveAxis(Z_STEP_PIN, Z_DIR_PIN, units);
+  zPosition += units;
+}
+
+// Serial input processing
+void processInput(String input) {
+  input.trim();
+
+  if (input.length() == 0) {
+    Serial.println("Invalid input");
+    return;
+  }
+
+  char mode = input.charAt(0);
+
+  switch (mode) {
+    case 'S': {
+      emergencyStop();
+      break;
+    }
+
+    case 'A': {
+      int secondSpace = input.indexOf(' ', 2);
+      if (secondSpace == -1) {
+        Serial.println("Invalid A input");
+        break;
+      }
+
+      long displacement = input.substring(2, secondSpace).toInt();
+      char axis = input.substring(secondSpace + 1).charAt(0);
+
+      moveAxis(displacement, axis);
+      break;
+    }
+
+    case 'G': {
+      int secondSpace = input.indexOf(' ', 2);
+      int thirdSpace = input.indexOf(' ', secondSpace + 1);
+
+      if (secondSpace == -1 || thirdSpace == -1) {
+        Serial.println("Invalid G input");
+        break;
+      }
+
+      long xCoord = input.substring(2, secondSpace).toInt();
+      long yCoord = input.substring(secondSpace + 1, thirdSpace).toInt();
+      long zCoord = input.substring(thirdSpace + 1).toInt();
+
+      moveOnGrid(xCoord, yCoord, zCoord);
+      break;
+    }
+
+    case 'Z': {
+      setOrigin();
+      break;
+    }
+
+    case 'M': {
+      int secondSpace = input.indexOf(' ', 2);
+      int thirdSpace = input.indexOf(' ', secondSpace + 1);
+      int fourthSpace = input.indexOf(' ', thirdSpace + 1);
+
+      if (secondSpace == -1 || thirdSpace == -1 || fourthSpace == -1) {
+        Serial.println("Invalid M input");
+        break;
+      }
+
+      long waferLength = input.substring(2, secondSpace).toInt();
+      long waferSpacing = input.substring(secondSpace + 1, thirdSpace).toInt();
+      long xSize = input.substring(thirdSpace + 1, fourthSpace).toInt();
+      long ySize = input.substring(fourthSpace + 1).toInt();
+
+      createMatrix(waferLength, waferSpacing, xSize, ySize);
+      break;
+    }
+
+    default:
+      Serial.println("Invalid mode");
+      break;
+  }
+}
+
+// Locally save position in EEPROM memory
+void savePosition() {
+  EEPROM.put(EEPROM_X_ADDR, xPosition);
+  EEPROM.put(EEPROM_Y_ADDR, yPosition);
+  EEPROM.put(EEPROM_Z_ADDR, zPosition);
+}
+
+// Emergency Stop
+void emergencyStop() {
+  stopRequested = true;
+  savePosition();
+  Serial.println("EMERGENCY STOP triggered. Position saved.");
+  Serial.print("Stopped at X: "); Serial.print(xPosition);
+  Serial.print(" Y: "); Serial.print(yPosition);
+  Serial.print(" Z: "); Serial.println(zPosition);
+}
+
+
+// Move by axis
+void moveAxis(long displacement, char axis) {
+  if (displacement != 0) {
+    if (axis == 'X' || axis == 'x') {
+      moveX(displacement);
+    }
+    else if (axis == 'Y' || axis == 'y') {
+      moveY(displacement);
+    }
+    else if (axis == 'Z' || axis == 'z') {
+      moveZ(displacement);
+    }
+    else {
+      Serial.println("Invalid axis");
+      return;
+    }
+
+    Serial.println("Motion complete.\n");
+    savePosition();
+  }
+}
+
+void moveOnGrid(long xCoord, long yCoord, long zCoord) {
+  long dx = xCoord - xPosition;
+  long dy = yCoord - yPosition;
+  long dz = zCoord - zPosition;
+
+  Serial.print("Moving to grid position: X=");
+  Serial.print(xCoord);
+  Serial.print(" Y=");
+  Serial.print(yCoord);
+  Serial.print(" Z=");
+  Serial.println(zCoord);
+
+  if (dz != 0) moveZ(dz);
+  if (dx != 0) moveX(dx);
+  if (dy != 0) moveY(dy);
+
+  savePosition();
+  Serial.println("Grid move complete.");
+}
+
+// Set grid origin
+void setOrigin() {
+  xPosition = 0;
+  yPosition = 0;
+  zPosition = 0;
+  savePosition();
+}
+
+void createMatrix(long waferLength, long waferSpacing, long xSize, long ySize) {
+  // Calculate how many die positions fit along each axis
+  long step = waferLength + waferSpacing;
+  long cols = xSize / step;
+  long rows = ySize / step;
+
+  if (cols <= 0 || rows <= 0) {
+    Serial.println("Matrix error: wafer dimensions too small for given die size and spacing.");
+    return;
+  }
+
+  Serial.print("Creating matrix: ");
+  Serial.print(cols);
+  Serial.print(" cols x ");
+  Serial.print(rows);
+  Serial.println(" rows");
+
+  // Snake/raster scan — avoids long return travel between rows
+  for (long row = 0; row < rows; row++) {
+    long yCoord = row * step;
+
+    for (long col = 0; col < cols; col++) {
+      // Alternate scan direction each row to minimise travel
+      long xCoord = (row % 2 == 0) ? (col * step) : ((cols - 1 - col) * step);
+
+      Serial.print("Exposing die at col=");
+      Serial.print(col);
+      Serial.print(" row=");
+      Serial.println(row);
+
+      moveOnGrid(xCoord, yCoord, zPosition); // keep Z unchanged during matrix scan
+    }
+  }
+
+  // Return to origin after full matrix is complete
+  moveOnGrid(0, 0, zPosition);
+  Serial.println("Matrix complete. Returned to origin.");
+}
+
+void setup() {
   pinMode(X_STEP_PIN, OUTPUT);
   pinMode(X_DIR_PIN, OUTPUT);
 
@@ -44,36 +277,25 @@ void setup() {
   pinMode(Z_STEP_PIN, OUTPUT);
   pinMode(Z_DIR_PIN, OUTPUT);
 
+  EEPROM.get(EEPROM_X_ADDR, xPosition);
+  EEPROM.get(EEPROM_Y_ADDR, yPosition);
+  EEPROM.get(EEPROM_Z_ADDR, zPosition);
+
   Serial.begin(115200);
+
+  Serial.println("Enter commands");
 }
 
 void loop() {
+  if (Serial.available() > 0) {
+    String input = Serial.readStringUntil('\n');
+    input.trim();
 
-  float x_mm, y_mm, z_mm;
-
-  Serial.println("Enter X distance in mm:");
-  while (Serial.available() == 0) {} //blocking wait loop
-  x_mm = Serial.parseFloat();
-
-  while (Serial.available() > 0) Serial.read();
-
-  Serial.println("Enter Y distance in mm:");
-  while (Serial.available() == 0) {}
-  y_mm = Serial.parseFloat();
-
-  while (Serial.available() > 0) Serial.read();
-
-  Serial.println("Enter Z distance in mm:");
-  while (Serial.available() == 0) {}
-  z_mm = Serial.parseFloat();
-
-  while (Serial.available() > 0) Serial.read();
-
-  moveAxis(X_STEP_PIN, X_DIR_PIN, x_mm);
-  moveAxis(Y_STEP_PIN, Y_DIR_PIN, y_mm);
-  moveAxis(Z_STEP_PIN, Z_DIR_PIN, z_mm);
-
-  Serial.println("Motion complete.\n");
-
-  delay(1000);
+    if (input.length() > 0) {
+      Serial.print("Command received: ");
+      Serial.println(input);
+      processInput(input);
+    }
+  }
 }
+
