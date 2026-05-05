@@ -40,6 +40,9 @@ long xPosition = 0;
 long yPosition = 0;
 long zPosition = 0;
 
+// Set by emergencyStop() or detected mid-move; cleared before each new command
+volatile bool stopRequested = false;
+
 // Axis pulse function
 void moveAxis(int stepPin, int dirPin, long units) {
   long moveAmount = units * PULSES_PER_UNIT;
@@ -56,6 +59,14 @@ void moveAxis(int stepPin, int dirPin, long units) {
   }
 
   for (long i = 0; i < moveAmount; i++) {
+    // Check serial every 100 pulses so we can catch a stop without slowing movement
+    if (i % 100 == 0 && Serial.available() > 0) {
+      if (Serial.read() == 'S') {
+        stopRequested = true;
+      }
+    }
+    if (stopRequested) break;
+
     digitalWrite(stepPin, HIGH);
     delayMicroseconds(STEP_DELAY_US);
     digitalWrite(stepPin, LOW);
@@ -177,9 +188,10 @@ void emergencyStop() {
   Serial.print(" Z: "); Serial.println(zPosition);
 }
 
-
 // Move by axis
 void moveAxis(long displacement, char axis) {
+  if (stopRequested) return;
+
   if (displacement != 0) {
     if (axis == 'X' || axis == 'x') {
       moveX(displacement);
@@ -195,12 +207,16 @@ void moveAxis(long displacement, char axis) {
       return;
     }
 
-    Serial.println("Motion complete.\n");
-    savePosition();
+    if (!stopRequested) {
+      Serial.println("Motion complete.");
+      savePosition();
+    }
   }
 }
 
 void moveOnGrid(long xCoord, long yCoord, long zCoord) {
+  if (stopRequested) return;
+
   long dx = xCoord - xPosition;
   long dy = yCoord - yPosition;
   long dz = zCoord - zPosition;
@@ -213,11 +229,13 @@ void moveOnGrid(long xCoord, long yCoord, long zCoord) {
   Serial.println(zCoord);
 
   if (dz != 0) moveZ(dz);
-  if (dx != 0) moveX(dx);
-  if (dy != 0) moveY(dy);
+  if (!stopRequested && dx != 0) moveX(dx);
+  if (!stopRequested && dy != 0) moveY(dy);
 
-  savePosition();
-  Serial.println("Grid move complete.");
+  if (!stopRequested) {
+    savePosition();
+    Serial.println("Grid move complete.");
+  }
 }
 
 // Set grid origin
@@ -229,7 +247,6 @@ void setOrigin() {
 }
 
 void createMatrix(long waferLength, long waferSpacing, long xSize, long ySize) {
-  // Calculate how many die positions fit along each axis
   long step = waferLength + waferSpacing;
   long cols = xSize / step;
   long rows = ySize / step;
@@ -245,12 +262,14 @@ void createMatrix(long waferLength, long waferSpacing, long xSize, long ySize) {
   Serial.print(rows);
   Serial.println(" rows");
 
-  // Snake/raster scan — avoids long return travel between rows
   for (long row = 0; row < rows; row++) {
+    if (stopRequested) break;
+
     long yCoord = row * step;
 
     for (long col = 0; col < cols; col++) {
-      // Alternate scan direction each row to minimise travel
+      if (stopRequested) break;
+
       long xCoord = (row % 2 == 0) ? (col * step) : ((cols - 1 - col) * step);
 
       Serial.print("Exposing die at col=");
@@ -258,13 +277,16 @@ void createMatrix(long waferLength, long waferSpacing, long xSize, long ySize) {
       Serial.print(" row=");
       Serial.println(row);
 
-      moveOnGrid(xCoord, yCoord, zPosition); // keep Z unchanged during matrix scan
+      moveOnGrid(xCoord, yCoord, zPosition);
     }
   }
 
-  // Return to origin after full matrix is complete
-  moveOnGrid(0, 0, zPosition);
-  Serial.println("Matrix complete. Returned to origin.");
+  if (stopRequested) {
+    Serial.println("Matrix halted by emergency stop.");
+  } else {
+    moveOnGrid(0, 0, zPosition);
+    Serial.println("Matrix complete. Returned to origin.");
+  }
 }
 
 void setup() {
@@ -294,8 +316,8 @@ void loop() {
     if (input.length() > 0) {
       Serial.print("Command received: ");
       Serial.println(input);
+      stopRequested = false;  // clear stop flag so new commands can execute
       processInput(input);
     }
   }
 }
-
